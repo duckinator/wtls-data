@@ -27,7 +27,7 @@ doc.css('tr').each do |x|
 
   next unless file.end_with?('.pdf')
   date = Time.parse(x.css('.m')[0].text)
-  date_dir = date.strftime('%Y/%M/%d')
+  date_dir = date.strftime('%Y/%m/%d')
 
   number, name = URI.decode(file).split('.')
   name.strip!
