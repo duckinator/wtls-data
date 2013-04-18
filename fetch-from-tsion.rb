@@ -48,5 +48,5 @@ end
 
 loop do
   fetch_all
-  sleep 30
+  sleep 60
 end
