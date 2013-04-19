@@ -8,7 +8,7 @@ require 'uri'
 require 'time'
 
 def fetch_all
-  print "Start fetching."
+  print "Fetching... "
   $skipped ||= []
   root = 'http://scott-olson.org/_why/'
   doc = Nokogiri::HTML(open(root).read)
