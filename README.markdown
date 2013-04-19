@@ -1,6 +1,7 @@
 # What is this?
 
 TODO: Somebody make this README less messy. I'm just writing it quickly before I lose track of the links.
+
 TODO: Find or create a PDF and/or website containing all of the pages. Preferably two: one that is a text transcription and one of the original images.
 
 [_why ("why the lucky stiff")](http://en.wikipedia.org/wiki/Why_the_lucky_stiff) came back briefly through his website, [whytheluckystiff.net](http://whytheluckystiff.net), and was putting content up in a way that appeared to operate similarly to a printer spool, and was using actual [PCL files](http://en.wikipedia.org/wiki/Printer_Command_Language).
