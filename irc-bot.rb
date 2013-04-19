@@ -12,6 +12,7 @@ require 'open-uri'
 class WhyBot < Cinch::Bot
   def initialize
     @sent = []
+    @first = true
 
     super() do
       configure do |c|
@@ -30,6 +31,11 @@ class WhyBot < Cinch::Bot
 
   def send_latest
     urls = fetch_latest - @sent
+    if @first && urls.length > 5
+      @sent += urls[0...-5]
+      urls = urls[-5..-1]
+      @first = true
+    end
 
     urls.each do |url|
       @sent << url

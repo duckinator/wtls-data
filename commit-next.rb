@@ -19,7 +19,7 @@ class Commit
   end
 
   def find_file(dir = '*', name)
-    Dir[File.join(File.dirname(__FILE__), dir, '*', '*', '*', "*#{name}*")].first
+    Dir[File.join(File.dirname(__FILE__), dir, '*', '*', '*', "*#{name}*")].grep(/#{name}(\..*)?$/).first
   end
 
   # Find next uncommitted PCL + tsion/ + steveklabnik/ grouping.
