@@ -18,13 +18,13 @@ def fetch_all
 
     number = 1
     files = Dir[File.join(File.dirname(__FILE__), 'PCL', date_dir, '*')]
-    if files.any? {|x| x.split('_')[-1].upcase == name.upcase }
+    if files.any? {|x| x.split('_', 2)[-1].upcase == name.upcase }
       puts "Skipping #{name.upcase} (already exists)."
       next
     end
 
     old = files.map do |x|
-      x.split('/').last.split('_').first
+      x.split('/').last.split('_', 2).first
     end.map(&:to_i).max
     number = old + 1 if old.is_a?(Numeric)
 

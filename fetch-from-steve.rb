@@ -9,7 +9,7 @@ def find_pcl(name)
 end
 
 def find_dir(name)
-  name = name.split('_')[-1].gsub('.pdf', '')
+  name = name.split('_', 2)[-1].gsub('.pdf', '')
   pcl  = find_pcl(name)
   dir  = File.join('steveklabnik', File.dirname(pcl).gsub('PCL/', ''))
   dir
@@ -28,7 +28,7 @@ def fetch_all
     File.exist?(find_full_path(file))
   end
   rejected = (links - accepted).map do |url|
-    url.split('/')[-1].split('_')[1].gsub('.pdf', '')
+    url.split('/')[-1].split('_', 2)[1].gsub('.pdf', '')
   end
 
   puts "Skipping: #{rejected.join(', ')}."
