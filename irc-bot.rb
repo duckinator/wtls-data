@@ -44,7 +44,7 @@ end
 
 bot = WhyBot.new
 
-Cinch::Timer.new(bot, :interval => (60 * 30)) do
+Cinch::Timer.new(bot, :interval => (60 * 3)) do
   bot.send_latest
 end
 
