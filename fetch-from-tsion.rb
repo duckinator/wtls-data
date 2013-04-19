@@ -6,6 +6,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'uri'
 require 'time'
+require 'fileutils'
 
 class Tsion
   def self.puts(*args)
@@ -34,6 +35,7 @@ class Tsion
       local_file = "#{number.to_s.rjust(3, '0')}_#{name.upcase}.pdf"
       local_dir  = File.join(File.dirname(__FILE__), 'tsion', date_dir)
       full_local_file = File.join(local_dir, local_file)
+      FileUtils.mkdir_p(local_dir)
 
       if File.exist?(full_local_file)
         if !@@skipped.include?(name)
