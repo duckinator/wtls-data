@@ -14,7 +14,10 @@ end
 
 # Find next uncommitted PCL + tsion/ + steveklabnik/ grouping.
 def find_next
-  first = `git status -s`.lines.map{|x| x.gsub('?? ', '') }.grep(/^(PCL|tsion|steveklabnik)\//).first.strip
+  status = `git status -s`.lines.reject(&:nil?).grep(/^(PCL|tsion|steveklabnik)\//)
+  return nil if status.empty?
+
+  first = status.map{|x| x.gsub('?? ', '') }.first.strip
 
   name = first.split('/')[-1].split('_', 2)[1]
 
@@ -27,6 +30,12 @@ end
 
 def commit_next
   name, files = find_next
+
+  if name.nil?
+    puts "Nothing to commit!"
+    exit
+  end
+
   files = files.reject(&:nil?).map{|x| Shellwords.escape(x) }.join(' ')
   msg = Shellwords.escape("Add #{name}.")
   `git add #{files} && git commit -m #{msg}`
