@@ -10,6 +10,8 @@ end
 
 
 class Commit
+  class NotDone < Exception; end
+
   def find(dir)
     (Dir["#{dir}/*/*/*/*"] + Dir["#{dir}/*/*/*/*/*"]).reject do |x|
       File.directory?(x)
@@ -40,7 +42,7 @@ class Commit
     [name, [pcl, tsion, steve]]
   end
 
-  def update
+  def commit_next
     name, files = find_next
 
     if name.nil?
@@ -50,8 +52,17 @@ class Commit
 
     files = files.reject(&:nil?).map{|x| Shellwords.escape(x) }.join(' ')
     msg = Shellwords.escape("Add #{name}.")
-    cmd = "git add #{files} && git commit -m #{msg}"
-    cmd += " && git push" if $push
-    `#{cmd}`
+    `git add #{files} && git commit -m #{msg}`
+  end
+
+  def update
+    commit_next
+
+    # I appologize in advance to everybody who reads this.
+    raise NotDone if find_next
+
+    `git push` if $push
+  rescue NotDone
+    retry
   end
 end
