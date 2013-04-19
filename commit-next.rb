@@ -2,6 +2,12 @@
 
 require 'shellwords'
 
+$push = (ARGV[0] == '--push')
+
+if $push
+  puts "NOTE: Pushing after every automated commit."
+end
+
 def find(dir)
   (Dir["#{dir}/*/*/*/*"] + Dir["#{dir}/*/*/*/*/*"]).reject do |x|
     File.directory?(x)
@@ -38,7 +44,12 @@ def commit_next
 
   files = files.reject(&:nil?).map{|x| Shellwords.escape(x) }.join(' ')
   msg = Shellwords.escape("Add #{name}.")
-  `git add #{files} && git commit -m #{msg}`
+  cmd = "git add #{files} && git commit -m #{msg}"
+  cmd += " && git push" if $push
+  `#{cmd}`
 end
 
-commit_next
+loop do
+  commit_next
+  sleep 60
+end
